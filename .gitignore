@@ -348,3 +348,8 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/src/Forms.BackgroundVideo.AndroidCore/Resources/Resource.designer.cs
+/src/Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView.Android/Resources/Resource.designer.cs
+/src/Forms.BackgroundVideo.AndroidCore/Resources/AboutResources.txt
+/src/Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView.Android/Assets/AboutAssets.txt
+/src/Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView.Android/Resources/AboutResources.txt

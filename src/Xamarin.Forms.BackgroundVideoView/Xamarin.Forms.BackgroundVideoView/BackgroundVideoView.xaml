@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:backgroundVideoView="clr-namespace:Xamarin.Forms.BackgroundVideoView;assembly=Xamarin.Forms.BackgroundVideoView"
+             mc:Ignorable="d" x:Name="control"
+             x:Class="Xamarin.Forms.BackgroundVideoView.BackgroundVideoView">
+
+    <Grid x:Name="mainContainer">
+
+
+        <backgroundVideoView:BackgroundVideoElement Source="{Binding Source={x:Reference control}, Path=Source}" 
+                                             Loop="{Binding Source={x:Reference control}, Path=Loop}"
+                                             HorizontalOptions="Fill" VerticalOptions="Fill" 
+                                             OnFinishedPlaying="{Binding Source={x:Reference control}, Path=OnFinishedPlaying}"/>
+
+        
+    </Grid>
+</ContentView>
