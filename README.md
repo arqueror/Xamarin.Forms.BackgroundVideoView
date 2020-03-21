@@ -2,7 +2,7 @@
 A simple view for displaying background video in Xamarin.Forms (iOS and Android)
 
 # Installation
-Add dlls manually to each project from bin folder
+Add dlls manually to each project from bin folder and remember to call : **Abstractions.Init()** on each platform
 
 # How it looks
 ![Alt Text](https://github.com/arqueror/Xamarin.Forms.BackgroundVideoView/blob/master/asset/demo.gif)
