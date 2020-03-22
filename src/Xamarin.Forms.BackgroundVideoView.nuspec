@@ -11,6 +11,8 @@
           A simple Xamarin.Forms view to display video as background.
 
        </description>
+       <license type="expression">MIT</license>
+       <icon>https://api.nuget.org/v3-flatcontainer/xamarin.forms.radialmenu/2.0.1/icon</icon>
        <summary>Works in iOS and Android</summary>
        <tags>xamarin, pcl, xam.pcl, android, xamarin.forms, ios, MVVM, controls</tags>
        <dependencies>
