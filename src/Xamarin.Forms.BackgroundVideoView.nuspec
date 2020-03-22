@@ -16,16 +16,16 @@
        <dependencies>
 
           <group targetFramework=".NETStandard2.1">
-            <dependency id="Xamarin.Forms" version="4.3.0.908675" />
+            <dependency id="Xamarin.Forms" version="4.5.0.396" />
           </group>
 
           <group targetFramework="MonoAndroid9.0">
-            <dependency id="Xamarin.Forms" version="4.3.0.908675" />
+            <dependency id="Xamarin.Forms" version="4.5.0.396" />
             <dependency id="Xamarin.Android.Support.v7.AppCompat" version="28.0.0.3" />
           </group>
          
          <group targetFramework="Xamarin.iOS1.0">
-            <dependency id="Xamarin.Forms" version="4.3.0.908675" />
+            <dependency id="Xamarin.Forms" version="4.5.0.396" />
          </group>
 
        </dependencies>
