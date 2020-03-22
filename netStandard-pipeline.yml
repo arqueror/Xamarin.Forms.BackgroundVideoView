@@ -113,7 +113,7 @@ steps:
 #  condition: succeededOrFailed() 
 
 #push to NuGet: https://medium.com/@yanxiaodi/using-azure-devops-pipelines-to-publish-the-nuget-package-from-github-repo-fb58be4e9be8
-# Push the nuget to the feed (click in DotNetCoreCLI@2 in Azure Devops to select the feed in Artifacts)
+# Push the nuget to the feed (click in DotNetCoreCLI@2 in Azure Devops to select the feed in Artifacts): https://medium.com/@dan.cokely/creating-nuget-packages-in-azure-devops-with-azure-pipelines-and-yaml-d6fa30f0f15e
 - task: DotNetCoreCLI@2
   displayName: 'dotnet push'
   inputs:
