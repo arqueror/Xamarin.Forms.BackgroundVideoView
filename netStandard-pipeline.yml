@@ -1,0 +1,40 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    projects: '/src/Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView.csproj'
+    feedsToUse: 'config'
+    nugetConfigPath: 'NuGet.config'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '/src/Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView.csproj'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '/src/Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView.csproj'
+    publishTestResults: false
+    workingDirectory: 'test/sdk-test'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'custom'
+    projects: '/src/Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView.csproj'
+    custom: 'pack'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'src/publish/netstandard'
+    ArtifactName: 'bin'
+    publishLocation: 'Container'
