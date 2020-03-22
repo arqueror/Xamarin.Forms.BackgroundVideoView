@@ -1,0 +1,123 @@
+trigger:
+- dev
+- test
+- uat
+- release
+- prod
+
+pool:
+  vmImage: 'windows-latest'
+  name: Azure Pipelines
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  major: 0
+  minor: 0
+  environment: 0
+
+  # If the code was pushed directly onto the branch
+  ${{ if ne( variables['Build.SourceBranchName'], 'merge' ) }}: 
+    ${{ if endsWith( variables['Build.SourceBranch'], 'dev' ) }}: 
+      environment: 0
+    ${{ if endsWith( variables['Build.SourceBranch'], 'test' ) }}: 
+      environment: 1
+    ${{ if endsWith( variables['Build.SourceBranch'], 'uat' ) }}: 
+      environment: 2
+    ${{ if endsWith( variables['Build.SourceBranch'], 'release' ) }}: 
+      environment: 3
+    ${{ if endsWith( variables['Build.SourceBranch'], 'prod' ) }}: 
+      environment: 4    
+
+  # If the branch update was made by a pull request
+  ${{ if endsWith( variables['System.PullRequest.TargetBranch'], 'dev' ) }}: 
+    environment: 0
+  ${{ if endsWith( variables['System.PullRequest.TargetBranch'], 'test' ) }}: 
+    environment: 1
+  ${{ if endsWith( variables['System.PullRequest.TargetBranch'], 'uat' ) }}: 
+    environment: 2
+  ${{ if endsWith( variables['System.PullRequest.TargetBranch'], 'release' ) }}: 
+    environment: 3
+  ${{ if endsWith( variables['System.PullRequest.TargetBranch'], 'prod' ) }}: 
+    environment: 4    
+
+# Assign the version
+name: $(major).$(minor).$(environment).$(BuildID)
+
+steps:
+
+# Set the nuget tool to restore packages
+- task: NuGetToolInstaller@0
+  displayName: 'Use NuGet 5.4.0'
+  inputs:
+    versionSpec: 5.4.0
+
+
+# Set assembly data
+- task: bleddynrichards.Assembly-Info-Task.Assembly-Info-NetCore.Assembly-Info-NetCore@2
+  displayName: 'Set Assembly Manifest Data'
+  inputs:
+    Path: src
+    InsertAttributes: true
+    PackageId: Xamarin.Forms.BackgroundVideoView
+    Authors: Ricardo Vasquez (arqueror)
+    Company: 
+    VersionNumber: '$(Build.BuildNumber)'
+    FileVersionNumber: '$(Build.BuildNumber)'
+    InformationalVersion: '$(Build.BuildNumber)'
+    PackageVersion: '$(Build.BuildNumber)'
+
+# Restore packages
+- task: NuGetCommand@2
+  displayName: 'NuGet restore'
+  inputs:
+    restoreSolution: 'src/Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView.sln'
+
+- task: MSBuild@1
+  inputs:
+    solution: '**/src/Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView.csproj'
+    configuration: 'Release'
+
+- task: MSBuild@1
+  inputs:
+    solution: '**/src/Forms.BackgroundVideo.AndroidCore/Forms.BackgroundVideo.AndroidCore.csproj'
+    configuration: 'Release'
+
+- task: MSBuild@1
+  inputs:
+    solution: '**/src/Xamarin.Forms.BackgroundVideoView/Forms.BackgroundVideoView.iOSCore/Forms.BackgroundVideoView.iOSCore.csproj'
+    configuration: 'Release'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'pack'
+    packagesToPack: 'src/Xamarin.Forms.BackgroundVideoView.nuspec'
+    versioningScheme: 'byBuildNumber'
+
+# Run tests
+#- task: DotNetCoreCLI@2
+#  inputs:
+#    command: 'test'
+#    projects: '**/AnexinetNugetDemoTest/*.csproj'
+#    arguments: '--configuration $(buildConfiguration)'
+#    testRunTitle: 'General tests'   
+
+# Copy files to staging area
+#- task: CopyFiles@2
+#  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+#  inputs:
+    # SourceFolder: Source
+#    Contents: '**\*.nupkg'
+#    TargetFolder: '$(build.artifactstagingdirectory)'
+#  condition: succeededOrFailed() 
+
+#push to NuGet: https://medium.com/@yanxiaodi/using-azure-devops-pipelines-to-publish-the-nuget-package-from-github-repo-fb58be4e9be8
+# Push the nuget to the feed (click in DotNetCoreCLI@2 in Azure Devops to select the feed in Artifacts): https://medium.com/@dan.cokely/creating-nuget-packages-in-azure-devops-with-azure-pipelines-and-yaml-d6fa30f0f15e
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet push'
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: 'ff4d8a97-805f-4aaf-bdb0-7774b9d0a86b/c079497c-dce5-498e-b250-885f09d4d779'
