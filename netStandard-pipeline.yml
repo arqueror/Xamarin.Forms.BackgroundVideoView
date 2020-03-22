@@ -42,7 +42,7 @@ variables:
     environment: 4    
 
 # Assign the version
-name: $(major).$(minor).$(environment).$(BuildID)
+name: $(major).$(minor).$(Build.BuildNumber).$(BuildID)
 
 steps:
 
