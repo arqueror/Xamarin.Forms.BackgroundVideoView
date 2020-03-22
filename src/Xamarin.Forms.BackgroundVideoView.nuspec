@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+   <metadata minClientVersion="2.8.1">
+       <id>AnexinetXamarinControls</id>
+       <version>1.0.0</version>
+       <title>BackgroundVideoView</title>
+       <authors>Ricardo Vasquez</authors>
+       <owners>Ricardo Vasquez</owners>
+       <requireLicenseAcceptance>false</requireLicenseAcceptance>
+       <description>
+
+
+       </description>
+       <summary>Works in iOS and Android</summary>
+       <tags>xamarin, pcl, xam.pcl, android, xamarin.forms, ios, MVVM, controls</tags>
+       <dependencies>
+
+          <group targetFramework=".NETStandard2.1">
+            <dependency id="Xamarin.Forms" version="4.4.0.991640" />
+          </group>
+
+          <group targetFramework="MonoAndroid9.0">
+            <dependency id="Xamarin.Forms" version="4.4.0.991640" />
+            <dependency id="Xamarin.Android.Support.v7.AppCompat" version="28.0.0.3" />
+          </group>
+         
+         <group targetFramework="Xamarin.iOS1.0">
+            <dependency id="Xamarin.Forms" version="4.4.0.991640" />
+         </group>
+
+       </dependencies>
+       <releaseNotes>
+       	ExtendedEntry added for inital testings.
+       </releaseNotes>
+   </metadata>
+   <files>
+     <!--Net Standard-->
+     <file src="Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView//bin/Release/netstandard2.1/Xamarin.Forms.BackgroundVideoView.dll" target="lib/netstandard2.1/Xamarin.Forms.BackgroundVideoView.dll" />
+     	 
+     <!--Xamarin.Android-->
+     <file src="Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView//bin/Release/netstandard2.1/Xamarin.Forms.BackgroundVideoView.dll" target="lib/MonoAndroid90/Xamarin.Forms.BackgroundVideoView.dll" />
+     <file src="Forms.BackgroundVideo.AndroidCore/bin/Release/Forms.BackgroundVideo.AndroidCore.dll" target="lib/MonoAndroid90/Forms.BackgroundVideo.AndroidCore.dll" />	 
+
+     <!--Xamarin.iOS-->
+     <file src="Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView//bin/Release/netstandard2.1/Xamarin.Forms.BackgroundVideoView.dll" target="lib/Xamarin.iOS10/Xamarin.Forms.BackgroundVideoView.dll" />
+     <file src="Xamarin.Forms.BackgroundVideoView/Forms.BackgroundVideoView.iOSCore/bin/Release/Forms.BackgroundVideoView.iOSCore.dll" target="lib/Xamarin.iOS10/Forms.BackgroundVideoView.iOSCore.dll" />
+		
+   </files>
+</package>
