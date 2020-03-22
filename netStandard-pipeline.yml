@@ -53,7 +53,7 @@ steps:
     versionSpec: 5.4.0
 
 # Set assembly data
-- task: bleddynrichards.Assembly-Info-Task.Assembly-Info-NetCore.Assembly-Info-NetCore@2
+- task: arqueror.Xamarin.Forms.BackgroundVideoView.Assembly-Info-Task.Assembly-Info-NetCore.Assembly-Info-NetCore@2
   displayName: 'Set Assembly Manifest Data'
   inputs:
     Path: Source
