@@ -95,23 +95,6 @@ steps:
     packagesToPack: 'src/Xamarin.Forms.BackgroundVideoView.nuspec'
     versioningScheme: 'byBuildNumber'
 
-# Run tests
-#- task: DotNetCoreCLI@2
-#  inputs:
-#    command: 'test'
-#    projects: '**/AnexinetNugetDemoTest/*.csproj'
-#    arguments: '--configuration $(buildConfiguration)'
-#    testRunTitle: 'General tests'   
-
-# Copy files to staging area
-#- task: CopyFiles@2
-#  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
-#  inputs:
-    # SourceFolder: Source
-#    Contents: '**\*.nupkg'
-#    TargetFolder: '$(build.artifactstagingdirectory)'
-#  condition: succeededOrFailed() 
-
 #push to NuGet: https://medium.com/@yanxiaodi/using-azure-devops-pipelines-to-publish-the-nuget-package-from-github-repo-fb58be4e9be8
 # Push the nuget to the feed (click in DotNetCoreCLI@2 in Azure Devops to select the feed in Artifacts): https://medium.com/@dan.cokely/creating-nuget-packages-in-azure-devops-with-azure-pipelines-and-yaml-d6fa30f0f15e
 - task: DotNetCoreCLI@2
