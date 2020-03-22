@@ -90,7 +90,7 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: 'pack'
-    packagesToPack: 'Source/AnexinetXamarinControls.nuspec'
+    packagesToPack: 'src/Xamarin.Forms.BackgroundVideoView.nuspec'
     versioningScheme: 'byBuildNumber'
 
 # Run tests
