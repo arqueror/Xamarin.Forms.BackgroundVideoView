@@ -1,40 +1,120 @@
-# ASP.NET Core (.NET Framework)
-# Build and test ASP.NET Core projects targeting the full .NET Framework.
-# Add steps that publish symbols, save build artifacts, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
-
 trigger:
-- master
+- dev
+- test
+- uat
+- release
+- prod
 
 pool:
   vmImage: 'windows-latest'
+  name: Azure Pipelines
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  major: 0
+  minor: 6
+
+  # If the code was pushed directly onto the branch
+  ${{ if ne( variables['Build.SourceBranchName'], 'merge' ) }}: 
+    ${{ if endsWith( variables['Build.SourceBranch'], 'dev' ) }}: 
+      environment: 0
+    ${{ if endsWith( variables['Build.SourceBranch'], 'test' ) }}: 
+      environment: 1
+    ${{ if endsWith( variables['Build.SourceBranch'], 'uat' ) }}: 
+      environment: 2
+    ${{ if endsWith( variables['Build.SourceBranch'], 'release' ) }}: 
+      environment: 3
+    ${{ if endsWith( variables['Build.SourceBranch'], 'prod' ) }}: 
+      environment: 4    
+
+  # If the branch update was made by a pull request
+  ${{ if endsWith( variables['System.PullRequest.TargetBranch'], 'dev' ) }}: 
+    environment: 0
+  ${{ if endsWith( variables['System.PullRequest.TargetBranch'], 'test' ) }}: 
+    environment: 1
+  ${{ if endsWith( variables['System.PullRequest.TargetBranch'], 'uat' ) }}: 
+    environment: 2
+  ${{ if endsWith( variables['System.PullRequest.TargetBranch'], 'release' ) }}: 
+    environment: 3
+  ${{ if endsWith( variables['System.PullRequest.TargetBranch'], 'prod' ) }}: 
+    environment: 4    
+
+# Assign the version
+name: $(major).$(minor).$(environment).$(BuildID)
 
 steps:
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'restore'
-    projects: '**/Xamarin.Forms.BackgroundVideoView.csproj'
-    feedsToUse: 'config'
-    nugetConfigPath: 'NuGet.config'
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    projects: '**/Xamarin.Forms.BackgroundVideoView.csproj'
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'test'
-    projects: '**/Xamarin.Forms.BackgroundVideoView.csproj'
-    publishTestResults: false
-    workingDirectory: 'test/sdk-test'
 
-- task: DotNetCoreCLI@2
+# Set the nuget tool to restore packages
+- task: NuGetToolInstaller@0
+  displayName: 'Use NuGet 4.4.1'
   inputs:
-    command: 'custom'
-    projects: '**/Xamarin.Forms.BackgroundVideoView.csproj'
-    custom: 'pack'
+    versionSpec: 5.4.0
 
-- task: PublishBuildArtifacts@1
+# Set assembly data
+- task: bleddynrichards.Assembly-Info-Task.Assembly-Info-NetCore.Assembly-Info-NetCore@2
+  displayName: 'Set Assembly Manifest Data'
   inputs:
-    PathtoPublish: 'src/publish/netstandard'
-    ArtifactName: 'bin'
-    publishLocation: 'Container'
+    Path: Source
+    InsertAttributes: true
+    PackageId: Xamarin.Forms.BackgroundVideoView
+    Authors: arqueror
+    Company: 
+    VersionNumber: '$(Build.BuildNumber)'
+    FileVersionNumber: '$(Build.BuildNumber)'
+    InformationalVersion: '$(Build.BuildNumber)'
+    PackageVersion: '$(Build.BuildNumber)'
+
+# Restore packages
+- task: NuGetCommand@2
+  displayName: 'NuGet restore'
+  inputs:
+    restoreSolution: 'src/Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView.sln'
+
+- task: MSBuild@1
+  inputs:
+    solution: '**/src/Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView.csproj'
+    configuration: 'Release'
+
+- task: MSBuild@1
+  inputs:
+    solution: '**/src/Forms.BackgroundVideo.AndroidCore/Forms.BackgroundVideo.AndroidCore.csproj'
+    configuration: 'Release'
+
+- task: MSBuild@1
+  inputs:
+    solution: '**/src/Xamarin.Forms.BackgroundVideoView/Forms.BackgroundVideoView.iOSCore/Forms.BackgroundVideoView.iOSCore.csproj'
+    configuration: 'Release'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'pack'
+    packagesToPack: 'Source/AnexinetXamarinControls.nuspec'
+    versioningScheme: 'byBuildNumber'
+
+# Run tests
+#- task: DotNetCoreCLI@2
+#  inputs:
+#    command: 'test'
+#    projects: '**/AnexinetNugetDemoTest/*.csproj'
+#    arguments: '--configuration $(buildConfiguration)'
+#    testRunTitle: 'General tests'   
+
+# Copy files to staging area
+#- task: CopyFiles@2
+#  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+#  inputs:
+    # SourceFolder: Source
+#    Contents: '**\*.nupkg'
+#    TargetFolder: '$(build.artifactstagingdirectory)'
+#  condition: succeededOrFailed() 
+
+# Push the nuget to the feed (click in DotNetCoreCLI@2 in Azure Devops to select the feed)
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet push'
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: '2fc6dd34-5d7e-427c-a226-cfe27fcba3ff/d7050bd5-bf6f-4f6d-b4b5-89ec3ae0b634'
