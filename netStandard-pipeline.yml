@@ -14,7 +14,7 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   major: 0
-  minor: 6
+  minor: 0
   environment: 0
 
   # If the code was pushed directly onto the branch
