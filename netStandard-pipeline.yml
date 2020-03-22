@@ -49,7 +49,9 @@ steps:
 
 # Set the nuget tool to restore packages
 - task: NuGetToolInstaller@0
-  displayName: 'Use NuGet 4.4.1'
+  displayName: 'Use NuGet 5.4.0'
+  inputs:
+    versionSpec: 5.4.0
 
 
 # Set assembly data
