@@ -112,7 +112,8 @@ steps:
 #    TargetFolder: '$(build.artifactstagingdirectory)'
 #  condition: succeededOrFailed() 
 
-# Push the nuget to the feed (click in DotNetCoreCLI@2 in Azure Devops to select the feed)
+#push to NuGet: https://medium.com/@yanxiaodi/using-azure-devops-pipelines-to-publish-the-nuget-package-from-github-repo-fb58be4e9be8
+# Push the nuget to the feed (click in DotNetCoreCLI@2 in Azure Devops to select the feed in Artifacts)
 - task: DotNetCoreCLI@2
   displayName: 'dotnet push'
   inputs:
