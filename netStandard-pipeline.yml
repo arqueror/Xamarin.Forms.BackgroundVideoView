@@ -56,10 +56,10 @@ steps:
 - task: bleddynrichards.Assembly-Info-Task.Assembly-Info-NetCore.Assembly-Info-NetCore@2
   displayName: 'Set Assembly Manifest Data'
   inputs:
-    Path: Source
+    Path: src
     InsertAttributes: true
     PackageId: Xamarin.Forms.BackgroundVideoView
-    Authors: arqueror
+    Authors: Ricardo Vasquez (arqueror)
     Company: 
     VersionNumber: '$(Build.BuildNumber)'
     FileVersionNumber: '$(Build.BuildNumber)'
