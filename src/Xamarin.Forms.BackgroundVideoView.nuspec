@@ -12,7 +12,7 @@
 
        </description>
        <license type="expression">MIT</license>
-       <icon>https://api.nuget.org/v3-flatcontainer/xamarin.forms.radialmenu/2.0.1/icon</icon>
+       <iconUrl>https://api.nuget.org/v3-flatcontainer/xamarin.forms.radialmenu/2.0.1/icon</iconUrl>
        <summary>Works in iOS and Android</summary>
        <tags>xamarin, pcl, xam.pcl, android, xamarin.forms, ios, MVVM, controls</tags>
        <dependencies>
