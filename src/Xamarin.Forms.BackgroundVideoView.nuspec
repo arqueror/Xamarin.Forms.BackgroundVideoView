@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
    <metadata minClientVersion="2.8.1">
-       <id>AnexinetXamarinControls</id>
+       <id>Xamarin.FOrms.BackgroundVideoView</id>
        <version>1.0.0</version>
        <title>BackgroundVideoView</title>
        <authors>Ricardo Vasquez</authors>
