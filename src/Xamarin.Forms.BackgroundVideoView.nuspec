@@ -38,14 +38,14 @@
    </metadata>
    <files>
      <!--Net Standard-->
-     <file src="Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView//bin/Release/netstandard2.0/Xamarin.Forms.BackgroundVideoView.dll" target="lib/netstandard2.0/Xamarin.Forms.BackgroundVideoView.dll" />
+     <file src="Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView/bin/Release/netstandard2.0/Xamarin.Forms.BackgroundVideoView.dll" target="lib/netstandard2.0/Xamarin.Forms.BackgroundVideoView.dll" />
      	 
      <!--Xamarin.Android-->
-     <file src="Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView//bin/Release/netstandard2.0/Xamarin.Forms.BackgroundVideoView.dll" target="lib/MonoAndroid90/Xamarin.Forms.BackgroundVideoView.dll" />
+     <file src="Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView/bin/Release/netstandard2.0/Xamarin.Forms.BackgroundVideoView.dll" target="lib/MonoAndroid90/Xamarin.Forms.BackgroundVideoView.dll" />
      <file src="Forms.BackgroundVideo.AndroidCore/bin/Release/Forms.BackgroundVideo.AndroidCore.dll" target="lib/MonoAndroid90/Forms.BackgroundVideo.AndroidCore.dll" />	 
 
      <!--Xamarin.iOS-->
-     <file src="Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView//bin/Release/netstandard2.0/Xamarin.Forms.BackgroundVideoView.dll" target="lib/Xamarin.iOS10/Xamarin.Forms.BackgroundVideoView.dll" />
+     <file src="Xamarin.Forms.BackgroundVideoView/Xamarin.Forms.BackgroundVideoView/bin/Release/netstandard2.0/Xamarin.Forms.BackgroundVideoView.dll" target="lib/Xamarin.iOS10/Xamarin.Forms.BackgroundVideoView.dll" />
      <file src="Xamarin.Forms.BackgroundVideoView/Forms.BackgroundVideoView.iOSCore/bin/Release/Forms.BackgroundVideoView.iOSCore.dll" target="lib/Xamarin.iOS10/Forms.BackgroundVideoView.iOSCore.dll" />
 		
    </files>
